@@ -26,7 +26,7 @@ Editar este archivo:
 
     sudo nano /etc/init.d/mmdvmhost
 
-Y cambiar:
+y cambiar:
 
     CONFIG=/etc/MMDVM.ini
     USER=root
@@ -66,3 +66,30 @@ Para ver el log de MMDVMHost, usar:
     tail -f /var/log/MMDVM-YYYY-MM-DD.log
 
 donde YYYY-MM-DD depende de la fecha actual. Desde ahora en adelante el servicio mmdvmhost debería iniciar automáticamente con el arranque del sistema.
+
+# Agregar actualización automática de DMRIds.dat
+
+Copiar script:
+
+    cd ~/MMDVMHost/linux/
+    sudo cp DMRIDUpdateBM.sh /etc/
+    sudo chmod +x /etc/DMRIDUpdateBM.sh
+
+Editar DMRIDUpdateBM.sh:
+
+    sudo nano /etc/DMRIDUpdateBM.sh
+
+y cambiar:
+
+    DMRIDFILE=/etc/DMRIds.dat
+    RESTARTCOMMAND="service mmdvmhost restart"
+
+Agregar el script al cron. Para ello editar el siguiente archivo:
+
+    sudo nano /etc/crontab
+
+y agregar la siguiente linea al final:
+
+    0  4  *  *  *  /etc/DMRIDUpdateBM.sh 1>/dev/null 2>&1
+
+Esto último actualiza automáticamente DMRIds.dat a las 4:00 am cada día.
