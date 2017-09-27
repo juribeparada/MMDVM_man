@@ -1,4 +1,8 @@
-# MMDVM firmware installation for Nucleo144 F767ZI
+# MMDVM firmware installation for Nucleo64 F446RE
+
+Enable RW filesystem if you are using Pi-Star:
+
+    rpi-rw
 
 Install toolchain and necessary packages:
 
@@ -17,16 +21,23 @@ Download the sources:
 
     git clone https://github.com/g4klx/MMDVM
     cd MMDVM
-    git clone https://github.com/juribeparada/STM32F7XX_Lib
+    git clone https://github.com/juribeparada/STM32F4XX_Lib
 
-Edit Config.h according your preferences:
+Edit Config.h:
 
     nano Config.h
+    
+Usually you could enable (for Morpho connector):
+
+    #define ARDUINO_MODE_PINS
+    #define STM32F4_NUCLEO_MORPHO_HEADER
+    #define SEND_RSSI_DATA
+    #define SERIAL_REPEATER
 
 Compile the code:
 
-    make f767
+    make nucleo
 
 Upload the firmware:
 
-    make deploy-f7
+    sudo make deploy
