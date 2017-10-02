@@ -81,7 +81,7 @@ Compile:
 
     make pi
 
-Upload de firmware:
+Upload the firmware:
 
     sudo make deploy-pi
 

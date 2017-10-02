@@ -29,4 +29,4 @@ Compile the code:
 
 Upload the firmware:
 
-    make deploy-f7
+    sudo make deploy-f7
