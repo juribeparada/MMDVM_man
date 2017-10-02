@@ -1,0 +1,663 @@
+\documentclass[]{article}
+
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+
+\lstdefinestyle{DOS}
+{
+	backgroundcolor=\color{black},
+	breaklines=true,
+	basicstyle=\scriptsize\color{white}\ttfamily
+}
+
+\title{Build instructions for MMDVM firmware using STM32F4XX or STM32F7XX}
+\author{Andy CA6JAU, Jim KI6ZUM}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Raspberry Pi}
+
+\subsection{Nucleo-64 F446RE}
+
+\begin{itemize}[leftmargin=*]
+\item Enable RW filesystem if you are using Pi-Star:
+\begin{lstlisting}[style=DOS]
+rpi-rw
+\end{lstlisting}
+
+\item Install toolchain and necessary packages:
+
+\begin{lstlisting}[style=DOS]
+sudo apt-get install git gcc-arm-none-eabi gdb-arm-none-eabi autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev
+\end{lstlisting}
+
+\item Install OpenOCD:
+
+\begin{lstlisting}[style=DOS]
+git clone https://github.com/juribeparada/openocd
+cd openocd
+./bootstrap
+./configure
+make
+sudo make install
+\end{lstlisting}
+
+\item Download the sources:
+
+\begin{lstlisting}[style=DOS]
+git clone https://github.com/g4klx/MMDVM
+cd MMDVM
+git clone https://github.com/juribeparada/STM32F4XX_Lib
+\end{lstlisting}
+
+\item Edit Config.h:
+
+\begin{lstlisting}[style=DOS]
+nano Config.h
+\end{lstlisting}
+
+\item Usually you could enable (for Morpho connector):
+
+\begin{verbatim}
+#define ARDUINO_MODE_PINS
+#define STM32F4_NUCLEO_MORPHO_HEADER
+#define SEND_RSSI_DATA
+#define SERIAL_REPEATER
+\end{verbatim}
+
+\item Compile the code:
+
+\begin{lstlisting}[style=DOS]
+make nucleo
+\end{lstlisting}
+
+\item Upload the firmware:
+
+\begin{lstlisting}[style=DOS]
+sudo make deploy
+\end{lstlisting}
+
+\end{itemize}
+
+\subsection{Nucleo-144 F767ZI}
+
+\begin{itemize}[leftmargin=*]
+\item Install toolchain and necessary packages:
+\begin{lstlisting}[style=DOS]
+sudo apt-get install git gcc-arm-none-eabi gdb-arm-none-eabi autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev
+\end{lstlisting}
+
+\item Install OpenOCD:
+\begin{lstlisting}[style=DOS]
+git clone https://github.com/juribeparada/openocd
+cd openocd
+./bootstrap
+./configure
+make
+sudo make install
+\end{lstlisting}
+
+\item Download the sources:
+\begin{lstlisting}[style=DOS]
+git clone https://github.com/g4klx/MMDVM
+cd MMDVM
+git clone https://github.com/juribeparada/STM32F7XX_Lib
+\end{lstlisting}
+
+\item Edit Config.h according your preferences:
+\begin{lstlisting}[style=DOS]
+nano Config.h
+\end{lstlisting}
+
+\item Compile the code:
+\begin{lstlisting}[style=DOS]
+make f767
+\end{lstlisting}
+
+\item Upload the firmware:
+\begin{lstlisting}[style=DOS]
+sudo make deploy-f7
+\end{lstlisting}
+
+\end{itemize}
+
+\subsection{MMDVM-Pi}
+
+\subsubsection{Enable serial port in Raspberry Pi 3 or Pi Zero W}
+
+This this necessary only if you are installing a fresh copy of Raspbian OS. Images like Pi-Star are already OK.
+
+\begin{itemize}[leftmargin=*]
+
+\item Edit /boot/cmdline.txt:
+\begin{lstlisting}[style=DOS]
+sudo nano /boot/cmdline.txt
+\end{lstlisting}
+(remove the text: console=serial0,115200)
+
+\item Disable services:
+\begin{lstlisting}[style=DOS]
+sudo systemctl disable serial-getty@ttyAMA0.service
+sudo systemctl disable bluetooth.service
+\end{lstlisting}
+
+\item Edit /boot/config.txt:
+\begin{lstlisting}[style=DOS]
+sudo nano /boot/config.txt
+\end{lstlisting}
+
+and add the following lines at the end of /boot/config.txt:
+\begin{verbatim}
+enable_uart=1
+dtoverlay=pi3-disable-bt
+\end{verbatim}
+
+\item Reboot your RPi:
+\begin{lstlisting}[style=DOS]
+sudo reboot
+\end{lstlisting}
+
+\end{itemize}
+
+\subsubsection{Installation of necessary software (only once)}
+
+\begin{itemize}[leftmargin=*]
+	
+\item Update package lists:
+\begin{lstlisting}[style=DOS]
+sudo apt-get update
+\end{lstlisting}
+
+\item Install toolchain and necessary packages:
+\begin{lstlisting}[style=DOS]
+sudo apt-get install git gcc-arm-none-eabi gdb-arm-none-eabi autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev
+\end{lstlisting}
+
+\item Download and compile serial flashing utilities:
+\begin{lstlisting}[style=DOS]
+cd ~
+git clone https://github.com/jsnyder/stm32ld
+cd stm32ld
+make
+sudo cp stm32ld /usr/local/bin
+\end{lstlisting}
+
+\item Remove libi2c-dev package if you are using Pi-Star:
+\begin{lstlisting}[style=DOS]
+rpi-rw
+sudo apt-get remove libi2c-dev
+\end{lstlisting}
+
+\item Remove stm32flash if you are using Pi-Star:
+\begin{lstlisting}[style=DOS]
+rpi-rw
+sudo rm /usr/bin/stm32flash
+\end{lstlisting}
+
+\item Install the latest stm32flash:
+\begin{lstlisting}[style=DOS]
+cd ~
+git clone https://git.code.sf.net/p/stm32flash/code stm32flash
+cd stm32flash
+make
+sudo make install
+\end{lstlisting}
+
+\end{itemize}
+
+\subsubsection{Firmware compilation for MMDVM-Pi}
+
+\begin{itemize}[leftmargin=*]
+	
+\item Download firmware sources:
+\begin{lstlisting}[style=DOS]
+cd ~
+git clone https://github.com/g4klx/MMDVM
+cd MMDVM
+git clone https://github.com/juribeparada/STM32F4XX_Lib
+\end{lstlisting}
+
+\item Edit Config.h according your preferences (or just keep intact for default compilation):
+\begin{lstlisting}[style=DOS]
+nano Config.h
+\end{lstlisting}
+
+\item Compile:
+\begin{lstlisting}[style=DOS]
+make pi
+\end{lstlisting}
+
+\item Upload the firmware:
+\begin{lstlisting}[style=DOS]
+sudo make deploy-pi
+\end{lstlisting}
+
+\end{itemize}
+
+\section{Linux Ubuntu}
+
+\begin{itemize}[leftmargin=*]
+	
+\item Remove the official package:
+\begin{lstlisting}[style=DOS]
+sudo apt-get purge binutils-arm-none-eabi gcc-arm-none-eabi gdb-arm-none-eabi libnewlib-arm-none-eabi
+\end{lstlisting}
+
+\item Add 3rd party repository:
+\begin{lstlisting}[style=DOS]
+sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
+sudo apt-get update
+\end{lstlisting}
+
+\item Check the GCC package version in the PPA repository:
+\begin{lstlisting}[style=DOS]
+sudo apt-cache policy gcc-arm-embedded
+\end{lstlisting}
+
+\item Install software requirements:
+\begin{lstlisting}[style=DOS]
+sudo apt-get install build-essential git gcc-arm-embedded qemu-system-arm symlinks expect autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev
+\end{lstlisting}
+
+\item Install latest openOCD tool from the sources:
+\begin{lstlisting}[style=DOS]
+git clone https://github.com/juribeparada/openocd
+cd openocd
+./bootstrap
+./configure
+make
+sudo make install
+\end{lstlisting}
+	
+\item Get the latest source code from GitHub:
+\begin{lstlisting}[style=DOS]
+git clone https://github.com/g4klx/MMDVM
+cd MMDVM
+git clone https://github.com/juribeparada/STM32F4XX_Lib
+git clone https://github.com/juribeparada/STM32F7XX_Lib
+\end{lstlisting}
+	
+\item Clean the directory before build:
+\begin{lstlisting}[style=DOS]
+make clean
+\end{lstlisting}
+	
+\item Edit Config.h according your preferences.
+	
+\item Then you can use the following commands to build the source code for the Nucleo-64 F446RE board:
+\begin{lstlisting}[style=DOS]
+make nucleo
+\end{lstlisting}
+	
+or for the STM32F4 Discovery board:
+\begin{lstlisting}[style=DOS]
+make dis
+\end{lstlisting}
+	
+or for the MMDVM-Pi board:
+\begin{lstlisting}[style=DOS]
+make pi
+\end{lstlisting}
+	
+or for the Nucleo-144 F767ZI board:
+\begin{lstlisting}[style=DOS]
+make f767
+\end{lstlisting}
+	
+\item Upload the firmware using OpenOCD (USB, internal ST-Link), for STM32F4 family:
+\begin{lstlisting}[style=DOS]
+sudo make deploy
+\end{lstlisting}
+	
+or for STM32F7 family:
+\begin{lstlisting}[style=DOS]
+sudo make deploy-f7
+\end{lstlisting}
+	
+\end{itemize}
+
+\section{Windows versions $<$ 10}
+
+\begin{itemize}[leftmargin=*]
+\item Download and install the ST-Link programming software from here (note: you will have to register with ST to be able to download the installer): \url{http://www.st.com/en/embedded-software/stsw-link004.html}
+
+\item Download and install Git for Windows (use default options):
+\url{https://git-scm.com/download/win}
+
+\item Download the GNU ARM embedded toolchain from here:
+\url{https://launchpad.net/gcc-arm-embedded/+download}
+
+Install the GNU ARM tools in the default location.
+
+\item Launch the "GCC Command Prompt" from "GNU Tools for ARM Embedded Processors" (Start Menu).
+
+\item Get the latest source code from GitHub (change USERNAME for a valid Windows user name):
+\begin{lstlisting}[style=DOS]
+cd C:\Users\USERNAME\
+git clone https://github.com/g4klx/MMDVM
+cd MMDVM
+git clone https://github.com/juribeparada/STM32F4XX_Lib
+git clone https://github.com/juribeparada/STM32F7XX_Lib
+\end{lstlisting}
+
+\item Download the GNU make utility:
+\url{http://gnuwin32.sourceforge.net/packages/make.htm}
+
+Download the binaries zip file and extract make.exe and put it in the same directory as Makefile.
+
+Download the dependencies zip file and extract libintl3.dll and libiconv2.dll and put them in the same directory as Makefile.
+
+\item Clean the directory before build:
+\begin{lstlisting}[style=DOS]
+make clean
+\end{lstlisting}
+
+\item Edit Config.h according your preferences.
+
+\item Then you can use the following commands to build the source code for the Nucleo-64 F446RE board:
+\begin{lstlisting}[style=DOS]
+make nucleo
+\end{lstlisting}
+
+or for the STM32F4 Discovery board:
+\begin{lstlisting}[style=DOS]
+make dis
+\end{lstlisting}
+
+or for the MMDVM-Pi board:
+\begin{lstlisting}[style=DOS]
+make pi
+\end{lstlisting}
+
+or for the Nucleo-144 F767ZI board:
+\begin{lstlisting}[style=DOS]
+make f767
+\end{lstlisting}
+
+The .hex file will be in the bin folder.
+
+\end{itemize}
+
+\section{Windows 10 with Ubuntu}
+
+\begin{itemize}[leftmargin=*]
+	
+\item Download and install the ST-Link programming software from here (note: you will have to register with ST to be able to download the installer): \url{http://www.st.com/en/embedded-software/stsw-link004.html}
+
+\item Install bash using these instructions: \url{http://www.pcworld.com/article/3106463/windows/how-to-get-bash-on-windows-10-with-the-anniversary-update.html}
+
+\item Once you have bash installed, install GCC for ARM. It must be $\geq$ version 4.9:
+\begin{lstlisting}[style=DOS]
+sudo apt-get install gcc
+sudo apt-get install make
+sudo apt-get remove gcc-arm-none-eabi
+sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
+sudo apt-get install -y git gcc-arm-embedded=5-2015q4-1~trusty1
+\end{lstlisting}
+
+\item Make sure git is installed. If not install it with:
+\begin{lstlisting}[style=DOS]
+sudo apt-get install git
+\end{lstlisting}
+
+\item Get the latest source code from GitHub:
+\begin{lstlisting}[style=DOS]
+git clone https://github.com/g4klx/MMDVM
+cd MMDVM
+git clone https://github.com/juribeparada/STM32F4XX_Lib
+git clone https://github.com/juribeparada/STM32F7XX_Lib
+\end{lstlisting}
+
+\item Clean the directory before build:
+\begin{lstlisting}[style=DOS]
+make clean
+\end{lstlisting}
+
+\item Edit Config.h according your preferences.
+
+\item Then you can use the following commands to build the source code for the Nucleo-64 F446RE board:
+\begin{lstlisting}[style=DOS]
+make nucleo
+\end{lstlisting}
+
+or for the STM32F4 Discovery board:
+\begin{lstlisting}[style=DOS]
+make dis
+\end{lstlisting}
+
+or for the MMDVM-Pi board:
+\begin{lstlisting}[style=DOS]
+make pi
+\end{lstlisting}
+
+or for the Nucleo-144 F767ZI board:
+\begin{lstlisting}[style=DOS]
+make f767
+\end{lstlisting}
+
+The .hex file will be in the bin folder.
+
+\end{itemize}
+
+\section{macOS}
+
+\begin{itemize}[leftmargin=*]
+	
+\item First install Homebrew (not root!):
+\begin{lstlisting}[style=DOS]
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+\end{lstlisting}
+
+\item Install additional software:
+\begin{lstlisting}[style=DOS]
+brew install libusb autogen automake wget pkg-config cmake openocd
+\end{lstlisting}
+
+\item Install the ARM GCC toolchain:
+\begin{lstlisting}[style=DOS]
+wget https://launchpad.net/gcc-arm-embedded/5.0/5-2016-q3-update/+download/gcc-arm-none-eabi-5_4-2016q3-20160926-mac.tar.bz2
+tar xvf gcc-arm-none-eabi-5_4-2016q3-20160926-mac.tar.bz2
+cd gcc-arm-none-eabi-5_4-2016q3/
+sudo cp -Rf * /usr/local/
+\end{lstlisting}
+
+\item Get the latest source code from GitHub:
+\begin{lstlisting}[style=DOS]
+git clone https://github.com/g4klx/MMDVM
+cd MMDVM
+git clone https://github.com/juribeparada/STM32F4XX_Lib
+git clone https://github.com/juribeparada/STM32F7XX_Lib
+\end{lstlisting}
+
+\item Clean the directory before build:
+\begin{lstlisting}[style=DOS]
+make clean
+\end{lstlisting}
+
+\item Edit Config.h according your preferences.
+
+\item Then you can use the following commands to build the source code for the Nucleo-64 F446RE board:
+\begin{lstlisting}[style=DOS]
+make nucleo
+\end{lstlisting}
+
+or for the STM32F4 Discovery board:
+\begin{lstlisting}[style=DOS]
+make dis
+\end{lstlisting}
+
+or for the MMDVM-Pi board:
+\begin{lstlisting}[style=DOS]
+make pi
+\end{lstlisting}
+
+or for the Nucleo-144 F767ZI board:
+\begin{lstlisting}[style=DOS]
+make f767
+\end{lstlisting}
+
+\item Upload the firmware using OpenOCD (USB, internal ST-Link), for STM32F4 family:
+\begin{lstlisting}[style=DOS]
+make deploy
+\end{lstlisting}
+
+or for STM32F7 family:
+\begin{lstlisting}[style=DOS]
+make deploy-f7
+\end{lstlisting}
+
+\end{itemize}
+
+\section{Pin definitions for different STM32 boards}
+
+\subsection{Pin definitions for STM32F4 Discovery Board:}
+
+\begin{verbatim}
+PTT      PB13   output           P1 Pin37
+COSLED   PA7    output           P1 Pin17
+LED      PD15   output           P1 Pin47
+COS      PA5    input            P1 Pin15
+
+DSTAR    PD12   output           P1 Pin44
+DMR      PD13   output           P1 Pin45
+YSF      PD14   output           P1 Pin46
+P25      PD11   output           P1 Pin43
+
+RX       PA0    analog input     P1 Pin12
+RSSI     PA1    analog input     P1 Pin11
+TX       PA4    analog output    P1 Pin16
+
+EXT_CLK  PA15   input            P2 Pin40
+
+- Host communication:
+USART3 - TXD PC10 - RXD PC11
+- Serial repeater (3.3 V):
+UART5  - TXD PC12 - RXD PD2
+\end{verbatim}
+
+\subsection{Pin definitions for Nucleo-64 F446RE boards (Morpho header):}
+
+\begin{verbatim}
+PTT      PB13   output           CN10 Pin30
+COSLED   PB14   output           CN10 Pin28
+LED      PA5    output           CN10 Pin11
+COS      PB15   input            CN10 Pin26
+
+DSTAR    PB10   output           CN10 Pin25
+DMR      PB4    output           CN10 Pin27
+YSF      PB5    output           CN10 Pin29
+P25      PB3    output           CN10 Pin31
+
+MDSTAR   PC4    output           CN10 Pin34
+MDMR     PC5    output           CN10 Pin6
+MYSF     PC2    output           CN7 Pin35
+MP25     PC3    output           CN7 Pin37
+
+RX       PA0    analog input     CN7 Pin28
+RSSI     PA1    analog input     CN7 Pin30
+TX       PA4    analog output    CN7 Pin32
+
+EXT_CLK  PA15   input            CN7 Pin17
+
+- Host communication:
+USART2 - TXD PA2  - RXD PA3  (already connected with ST-Link VCP)
+- Serial repeater (3.3 V):
+UART5  - TXD PC12 - RXD PD2
+\end{verbatim}
+
+\subsection{Pin definitions for Nucleo-64 F446RE boards (Arduino header):}
+
+\begin{verbatim}
+PTT      PB10   output           CN9 Pin7
+COSLED   PB3    output           CN9 Pin4
+LED      PB5    output           CN9 Pin5
+COS      PB4    input            CN9 Pin6
+
+DSTAR    PA1    output           CN8 Pin2
+DMR      PA4    output           CN8 Pin3
+YSF      PB0    output           CN8 Pin4
+P25      PC1    output           CN8 Pin5
+
+RX       PA0    analog input     CN8 Pin1
+RSSI     PC0    analog input     CN8 Pin6
+TX       PA5    analog output    CN5 Pin6
+
+EXT_CLK  PB8    input            CN5 Pin10
+
+- Host communication:
+USART2 - TXD PA2  - RXD PA3  (already connected with ST-Link VCP)
+- Serial repeater (3.3 V):
+USART1 - TXD PA9  - RXD PA10
+\end{verbatim}
+
+\subsection{Pin definitions for MMDVM-Pi:}
+
+\begin{verbatim}
+PTT      PB13   output
+COSLED   PB14   output
+LED      PB15   output
+COS      PC0    input
+
+DSTAR    PC7    output
+DMR      PC8    output
+YSF      PA8    output
+P25      PC9    output
+
+RX       PA0    analog input
+RSSI     PA7    analog input
+TX       PA4    analog output
+
+EXT_CLK  PA15   input
+
+- Host communication:
+USART1 - TXD PA9  - RXD PA10
+- Serial repeater (3.3 V):
+UART5  - TXD PC12 - RXD PD2
+\end{verbatim}
+
+\subsection{Pin definitions for Nucleo-144 F767ZI boards (Morpho header):}
+
+\begin{verbatim}
+PTT      PB13   output           CN12 Pin30
+COSLED   PB14   output           CN12 Pin28
+LED      PA5    output           CN12 Pin11
+COS      PB15   input            CN12 Pin26
+
+DSTAR    PB10   output           CN12 Pin25
+DMR      PB4    output           CN12 Pin27
+YSF      PB5    output           CN12 Pin29
+P25      PB3    output           CN12 Pin31
+
+MDSTAR   PC4    output           CN12 Pin34
+MDMR     PC5    output           CN12 Pin6
+MYSF     PC2    output           CN11 Pin35
+MP25     PC3    output           CN11 Pin37
+
+RX       PA0    analog input     CN11 Pin28
+RSSI     PA1    analog input     CN11 Pin30
+TX       PA4    analog output    CN11 Pin32
+
+EXT_CLK  PA15   input            CN11 Pin17
+
+- Host communication:
+USART3 - TXD PD8  - RXD PD9  (already connected with ST-Link VCP)
+- Serial repeater (3.3 V):
+UART5  - TXD PC12 - RXD PD2
+\end{verbatim}
+
+\section{Final notes}
+
+\begin{itemize}[leftmargin=*]
+	
+\item You will find more instructions here: \url{https://github.com/juribeparada/MMDVM_man}
+
+\item The source code of this document (LaTeX) is here: \url{https://github.com/juribeparada/MMDVM_man/blob/master/STM32_MMDVM/mmdvm_stm32_build.tex}
+
+\end{itemize}
+
+\end{document}
