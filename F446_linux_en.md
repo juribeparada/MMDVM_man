@@ -1,5 +1,10 @@
 # MMDVM firmware installation for Nucleo64 F446RE
 
+If you are using Pi-Star, expand filesystem (if you haven't done before):
+
+    sudo pistar-expand
+    sudo reboot
+
 Enable RW filesystem if you are using Pi-Star:
 
     rpi-rw
@@ -37,6 +42,12 @@ Usually you could enable (for Morpho connector):
 Compile the code:
 
     make nucleo
+
+If you are using Pi-Star, stop services:
+
+    sudo pistar-watchdog.service stop
+    sudo systemctl stop mmdvmhost.timer
+    sudo systemctl stop mmdvmhost.service
 
 Upload the firmware:
 

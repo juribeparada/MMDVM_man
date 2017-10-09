@@ -25,6 +25,14 @@
 \subsection{Nucleo-64 F446RE}
 
 \begin{itemize}[leftmargin=*]
+	
+\item If you are using Pi-Star, expand filesystem (if you haven't done before):
+
+\begin{lstlisting}[style=DOS]
+sudo pistar-expand
+sudo reboot
+\end{lstlisting}
+
 \item Enable RW filesystem if you are using Pi-Star:
 \begin{lstlisting}[style=DOS]
 rpi-rw
@@ -76,6 +84,14 @@ nano Config.h
 make nucleo
 \end{lstlisting}
 
+\item If you are using Pi-Star, stop services:
+
+\begin{lstlisting}[style=DOS]
+sudo pistar-watchdog.service stop
+sudo systemctl stop mmdvmhost.timer
+sudo systemctl stop mmdvmhost.service
+\end{lstlisting}
+
 \item Upload the firmware:
 
 \begin{lstlisting}[style=DOS]
@@ -87,6 +103,13 @@ sudo make deploy
 \subsection{Nucleo-144 F767ZI}
 
 \begin{itemize}[leftmargin=*]
+
+\item If you are using Pi-Star, expand filesystem (if you haven't done before):
+\begin{lstlisting}[style=DOS]
+sudo pistar-expand
+sudo reboot
+\end{lstlisting}
+
 \item Install toolchain and necessary packages:
 \begin{lstlisting}[style=DOS]
 sudo apt-get install git gcc-arm-none-eabi gdb-arm-none-eabi autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev
@@ -117,6 +140,13 @@ nano Config.h
 \item Compile the code:
 \begin{lstlisting}[style=DOS]
 make f767
+\end{lstlisting}
+
+\item If you are using Pi-Star, stop services:
+\begin{lstlisting}[style=DOS]
+sudo pistar-watchdog.service stop
+sudo systemctl stop mmdvmhost.timer
+sudo systemctl stop mmdvmhost.service
 \end{lstlisting}
 
 \item Upload the firmware:
@@ -168,9 +198,20 @@ sudo reboot
 
 \begin{itemize}[leftmargin=*]
 	
+\item If you are using Pi-Star, expand filesystem (if you haven't done before):
+\begin{lstlisting}[style=DOS]
+sudo pistar-expand
+sudo reboot
+\end{lstlisting}
+
 \item Update package lists:
 \begin{lstlisting}[style=DOS]
 sudo apt-get update
+\end{lstlisting}
+
+\item Enable RW filesystem if you are using Pi-Star:
+\begin{lstlisting}[style=DOS]
+rpi-rw
 \end{lstlisting}
 
 \item Install toolchain and necessary packages:
@@ -187,16 +228,10 @@ make
 sudo cp stm32ld /usr/local/bin
 \end{lstlisting}
 
-\item Remove libi2c-dev package if you are using Pi-Star:
+\item Remove libi2c-dev and stm32flash packages if you are using Pi-Star:
 \begin{lstlisting}[style=DOS]
-rpi-rw
 sudo apt-get remove libi2c-dev
-\end{lstlisting}
-
-\item Remove stm32flash if you are using Pi-Star:
-\begin{lstlisting}[style=DOS]
-rpi-rw
-sudo rm /usr/bin/stm32flash
+sudo apt-get remove stm32flash
 \end{lstlisting}
 
 \item Install the latest stm32flash:
@@ -230,6 +265,14 @@ nano Config.h
 \item Compile:
 \begin{lstlisting}[style=DOS]
 make pi
+\end{lstlisting}
+
+\item If you are using Pi-Star, stop services:
+
+\begin{lstlisting}[style=DOS]
+sudo pistar-watchdog.service stop
+sudo systemctl stop mmdvmhost.timer
+sudo systemctl stop mmdvmhost.service
 \end{lstlisting}
 
 \item Upload the firmware:

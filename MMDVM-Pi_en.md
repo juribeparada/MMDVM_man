@@ -30,9 +30,18 @@ Reboot your RPi:
 
 ## Installation of necessary software (only once)
 
+If you are using Pi-Star, expand filesystem (if you haven't done before):
+
+    sudo pistar-expand
+    sudo reboot
+
 Update package lists:
 
     sudo apt-get update
+
+Enable RW filesystem if you are using Pi-Star:
+
+    rpi-rw
 
 Install toolchain and necessary packages:
 
@@ -46,15 +55,10 @@ Download and compile serial flashing utilities:
     make
     sudo cp stm32ld /usr/local/bin
 
-Remove libi2c-dev package if you are using Pi-Star:
+Remove libi2c-dev and stm32flash packages if you are using Pi-Star:
 
-    rpi-rw
     sudo apt-get remove libi2c-dev
-
-Remove stm32flash if you are using Pi-Star:
-
-    rpi-rw
-    sudo rm /usr/bin/stm32flash
+    sudo apt-get remove stm32flash
 
 Install the latest stm32flash:
 
@@ -80,6 +84,12 @@ Edit Config.h according your preferences (or just keep intact for default compil
 Compile:
 
     make pi
+
+If you are using Pi-Star, stop services:
+
+    sudo pistar-watchdog.service stop
+    sudo systemctl stop mmdvmhost.timer
+    sudo systemctl stop mmdvmhost.service
 
 Upload the firmware:
 
