@@ -26,7 +26,7 @@ Reboot your RPi:
 
     sudo reboot
 
-# Build de firmware and upload to ZUMspot RPi
+# Build de firmware and upload to MMDVM-Pi
 
 ## Installation of necessary software (only once)
 
