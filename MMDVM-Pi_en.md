@@ -35,13 +35,13 @@ If you are using Pi-Star, expand filesystem (if you haven't done before):
     sudo pistar-expand
     sudo reboot
 
-Update package lists:
-
-    sudo apt-get update
-
 Enable RW filesystem if you are using Pi-Star:
 
     rpi-rw
+
+Update list of packages:
+
+    sudo apt-get update
 
 Install toolchain and necessary packages:
 

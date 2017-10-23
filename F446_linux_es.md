@@ -9,6 +9,10 @@ Habilita la escritura en el disco si usas Pi-Star:
 
     rpi-rw
 
+Actualizar la lista de paquetes:
+
+    sudo apt-get update
+
 Instala el compilador y paquetes necesarios:
 
     sudo apt-get install git gcc-arm-none-eabi gdb-arm-none-eabi autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev

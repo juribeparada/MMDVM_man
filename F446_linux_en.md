@@ -9,6 +9,10 @@ Enable RW filesystem if you are using Pi-Star:
 
     rpi-rw
 
+Update list of packages:
+
+    sudo apt-get update
+
 Install toolchain and necessary packages:
 
     sudo apt-get install git gcc-arm-none-eabi gdb-arm-none-eabi autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev

@@ -35,13 +35,13 @@ Si estás usando Pi-Star, expande el sistema de archivos (si no lo has realizado
     sudo pistar-expand
     sudo reboot
 
-Actualizar la lista de paquetes:
-
-    sudo apt-get update
-
 Habilita la escritura en el disco si usas Pi-Star:
 
     rpi-rw
+
+Actualizar la lista de paquetes:
+
+    sudo apt-get update
 
 Instala el compilador y paquetes necesarios:
 
