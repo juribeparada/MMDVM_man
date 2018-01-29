@@ -45,7 +45,7 @@ Update list of packages:
 
 Install toolchain and necessary packages:
 
-    sudo apt-get install git gcc-arm-none-eabi gdb-arm-none-eabi autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev
+    sudo apt-get install git gcc-arm-none-eabi gdb-arm-none-eabi libstdc++-arm-none-eabi-newlib autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev
 
 Download and compile serial flashing utilities:
 
