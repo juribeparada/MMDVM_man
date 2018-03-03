@@ -41,7 +41,7 @@ rpi-rw
 \item Install toolchain and necessary packages:
 
 \begin{lstlisting}[style=DOS]
-sudo apt-get install git gcc-arm-none-eabi gdb-arm-none-eabi autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev
+sudo apt-get install git gcc-arm-none-eabi gdb-arm-none-eabi libstdc++-arm-none-eabi-newlib autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev
 \end{lstlisting}
 
 \item Install OpenOCD:
@@ -112,7 +112,7 @@ sudo reboot
 
 \item Install toolchain and necessary packages:
 \begin{lstlisting}[style=DOS]
-sudo apt-get install git gcc-arm-none-eabi gdb-arm-none-eabi autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev
+sudo apt-get install git gcc-arm-none-eabi gdb-arm-none-eabi libstdc++-arm-none-eabi-newlib autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev
 \end{lstlisting}
 
 \item Install OpenOCD:
@@ -216,7 +216,7 @@ rpi-rw
 
 \item Install toolchain and necessary packages:
 \begin{lstlisting}[style=DOS]
-sudo apt-get install git gcc-arm-none-eabi gdb-arm-none-eabi autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev
+sudo apt-get install git gcc-arm-none-eabi gdb-arm-none-eabi libstdc++-arm-none-eabi-newlib autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev
 \end{lstlisting}
 
 \item Download and compile serial flashing utilities:
@@ -257,10 +257,20 @@ cd MMDVM
 git clone https://github.com/juribeparada/STM32F4XX_Lib
 \end{lstlisting}
 
-\item Edit Config.h according your preferences (or just keep intact for default compilation):
+\item Edit Config.h according your preferences:
 \begin{lstlisting}[style=DOS]
 nano Config.h
 \end{lstlisting}
+
+\item You can select for example:
+
+\begin{verbatim}
+// #define EXTERNAL_OSC 12000000 (disable any external TCXO)
+// #define ARDUINO_DUE_ZUM_V10 (this option doesn't matter for STM32 devices)
+#define ARDUINO_MODE_PINS
+#define SEND_RSSI_DATA
+#define SERIAL_REPEATER
+\end{verbatim}
 
 \item Compile:
 \begin{lstlisting}[style=DOS]
@@ -288,7 +298,7 @@ sudo make deploy-pi
 	
 \item Remove the official package:
 \begin{lstlisting}[style=DOS]
-sudo apt-get purge binutils-arm-none-eabi gcc-arm-none-eabi gdb-arm-none-eabi libnewlib-arm-none-eabi
+sudo apt-get purge binutils-arm-none-eabi gcc-arm-none-eabi gdb-arm-none-eabi libstdc++-arm-none-eabi-newlib libnewlib-arm-none-eabi
 \end{lstlisting}
 
 \item Add 3rd party repository:

@@ -77,9 +77,17 @@ Baja el código fuente del firmware MMDVM:
     cd MMDVM
     git clone https://github.com/juribeparada/STM32F4XX_Lib
 
-Editar Config.h de acuerdo a tus preferencias (o dejarlo intacto para las opciones por defecto):
+Editar Config.h de acuerdo a tus preferencias:
 
     nano Config.h
+
+Puedes seleccionar por ejemplo:
+
+    // #define EXTERNAL_OSC 12000000 (deshabilitar todos los TCXO externos)
+    // #define ARDUINO_DUE_ZUM_V10 (en realidad esta opcion no importa en STM32)
+    #define ARDUINO_MODE_PINS
+    #define SEND_RSSI_DATA
+    #define SERIAL_REPEATER
 
 Compilar el código fuente:
 
