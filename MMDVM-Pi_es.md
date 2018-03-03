@@ -68,6 +68,10 @@ Instalar la última versión de stm32flash:
     make
     sudo make install
 
+Puedes también bajar el zip con el código fuente y compilarlo a parte:
+
+    https://sourceforge.net/projects/stm32flash/files/
+
 ## Instalación de firmware MMDVM para MMDVM-Pi
 
 Baja el código fuente del firmware MMDVM:
@@ -84,10 +88,11 @@ Editar Config.h de acuerdo a tus preferencias:
 Puedes seleccionar por ejemplo:
 
     // #define EXTERNAL_OSC 12000000 (deshabilitar todos los TCXO externos)
-    // #define ARDUINO_DUE_ZUM_V10 (en realidad esta opcion no importa en STM32)
+    // #define ARDUINO_DUE_ZUM_V10 (en realidad esta opción no importa en STM32)
     #define ARDUINO_MODE_PINS
     #define SEND_RSSI_DATA
     #define SERIAL_REPEATER
+    #define USE_DCBLOCKER
 
 Compilar el código fuente:
 

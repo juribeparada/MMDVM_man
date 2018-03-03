@@ -68,6 +68,10 @@ Install the latest stm32flash:
     make
     sudo make install
 
+Another place to get the lastest stm32flash is:
+
+    https://sourceforge.net/projects/stm32flash/files/
+
 ## MMDVM firmware compilation and uploading for MMDVM-Pi
 
 Download firmware sources:
@@ -88,6 +92,7 @@ You can select for example:
     #define ARDUINO_MODE_PINS
     #define SEND_RSSI_DATA
     #define SERIAL_REPEATER
+    #define USE_DCBLOCKER
 
 Compile:
 

@@ -76,6 +76,7 @@ nano Config.h
 #define STM32F4_NUCLEO_MORPHO_HEADER
 #define SEND_RSSI_DATA
 #define SERIAL_REPEATER
+#define USE_DCBLOCKER
 \end{verbatim}
 
 \item Compile the code:
@@ -136,6 +137,15 @@ git clone https://github.com/juribeparada/STM32F7XX_Lib
 \begin{lstlisting}[style=DOS]
 nano Config.h
 \end{lstlisting}
+
+\item Usually you could enable:
+
+\begin{verbatim}
+#define ARDUINO_MODE_PINS
+#define SEND_RSSI_DATA
+#define SERIAL_REPEATER
+#define USE_DCBLOCKER
+\end{verbatim}
 
 \item Compile the code:
 \begin{lstlisting}[style=DOS]
@@ -243,6 +253,12 @@ make
 sudo make install
 \end{lstlisting}
 
+\item Another place to get the lastest stm32flash is:
+
+\begin{verbatim}
+https://sourceforge.net/projects/stm32flash/files/
+\end{verbatim}
+
 \end{itemize}
 
 \subsubsection{Firmware compilation for MMDVM-Pi}
@@ -270,6 +286,7 @@ nano Config.h
 #define ARDUINO_MODE_PINS
 #define SEND_RSSI_DATA
 #define SERIAL_REPEATER
+#define USE_DCBLOCKER
 \end{verbatim}
 
 \item Compile:

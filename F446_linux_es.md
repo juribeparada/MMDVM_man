@@ -42,6 +42,7 @@ Debería quedar habilitado (sin "//" delante de cada linea) las siguientes opcio
     #define STM32F4_NUCLEO_MORPHO_HEADER
     #define SEND_RSSI_DATA
     #define SERIAL_REPEATER
+    #define USE_DCBLOCKER
 
 Compila el código fuente:
 

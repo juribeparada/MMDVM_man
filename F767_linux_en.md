@@ -36,6 +36,13 @@ Edit Config.h according your preferences:
 
     nano Config.h
 
+Usually you could enable:
+
+    #define ARDUINO_MODE_PINS
+    #define SEND_RSSI_DATA
+    #define SERIAL_REPEATER
+    #define USE_DCBLOCKER
+
 Compile the code:
 
     make f767
