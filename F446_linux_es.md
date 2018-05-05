@@ -19,7 +19,7 @@ Instala el compilador y paquetes necesarios:
 
 Instala OpenOCD:
 
-    git clone https://github.com/juribeparada/openocd
+    git clone https://github.com/ntfreak/openocd
     cd openocd
     ./bootstrap
     ./configure
