@@ -79,7 +79,8 @@ Baja el código fuente del firmware MMDVM:
     cd ~
     git clone https://github.com/g4klx/MMDVM
     cd MMDVM
-    git clone https://github.com/juribeparada/STM32F4XX_Lib
+    git submodule init
+    git submodule update
 
 Editar Config.h de acuerdo a tus preferencias:
 

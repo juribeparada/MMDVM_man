@@ -79,7 +79,8 @@ Download firmware sources:
     cd ~
     git clone https://github.com/g4klx/MMDVM
     cd MMDVM
-    git clone https://github.com/juribeparada/STM32F4XX_Lib
+    git submodule init
+    git submodule update
 
 Edit Config.h according your preferences:
 
