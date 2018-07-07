@@ -39,11 +39,12 @@ Edita Config.h:
     
 Debería quedar habilitado (sin "//" delante de cada linea) las siguientes opciones (para conector Morpho):
 
-    #define ARDUINO_MODE_PINS
+    #define MODE_PINS
     #define STM32F4_NUCLEO_MORPHO_HEADER
     #define SEND_RSSI_DATA
     #define SERIAL_REPEATER
     #define USE_DCBLOCKER
+    #define USE_ALTERNATE_POCSAG_LEDS
 
 Compila el código fuente:
 

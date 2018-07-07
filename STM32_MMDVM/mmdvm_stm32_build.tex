@@ -73,11 +73,12 @@ nano Config.h
 \item Usually you could enable (for Morpho connector):
 
 \begin{verbatim}
-#define ARDUINO_MODE_PINS
+#define MODE_PINS
 #define STM32F4_NUCLEO_MORPHO_HEADER
 #define SEND_RSSI_DATA
 #define SERIAL_REPEATER
 #define USE_DCBLOCKER
+#define USE_ALTERNATE_POCSAG_LEDS
 \end{verbatim}
 
 \item Compile the code:
@@ -143,10 +144,11 @@ nano Config.h
 \item Usually you could enable:
 
 \begin{verbatim}
-#define ARDUINO_MODE_PINS
+#define MODE_PINS
 #define SEND_RSSI_DATA
 #define SERIAL_REPEATER
 #define USE_DCBLOCKER
+#define USE_ALTERNATE_POCSAG_LEDS
 \end{verbatim}
 
 \item Compile the code:
@@ -286,10 +288,11 @@ nano Config.h
 \begin{verbatim}
 // #define EXTERNAL_OSC 12000000 (disable any external TCXO)
 // #define ARDUINO_DUE_ZUM_V10 (this option doesn't matter for STM32 devices)
-#define ARDUINO_MODE_PINS
+#define MODE_PINS
 #define SEND_RSSI_DATA
 #define SERIAL_REPEATER
 #define USE_DCBLOCKER
+#define USE_ALTERNATE_POCSAG_LEDS
 \end{verbatim}
 
 \item Compile:

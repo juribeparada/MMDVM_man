@@ -90,10 +90,11 @@ You can select for example:
 
     // #define EXTERNAL_OSC 12000000 (disable any external TCXO)
     // #define ARDUINO_DUE_ZUM_V10 (this option doesn't matter for STM32 devices)
-    #define ARDUINO_MODE_PINS
+    #define MODE_PINS
     #define SEND_RSSI_DATA
     #define SERIAL_REPEATER
     #define USE_DCBLOCKER
+    #define USE_ALTERNATE_POCSAG_LEDS
 
 Compile:
 
