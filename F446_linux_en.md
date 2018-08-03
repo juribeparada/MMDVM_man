@@ -39,7 +39,7 @@ Edit Config.h:
     
 Usually you could enable (for Morpho connector):
 
-    #define MODE_PINS
+    #define MODE_LEDS
     #define STM32F4_NUCLEO_MORPHO_HEADER
     #define SEND_RSSI_DATA
     #define SERIAL_REPEATER
