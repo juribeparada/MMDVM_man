@@ -39,7 +39,7 @@ Edit Config.h according your preferences:
 
 Usually you could enable:
 
-    #define MODE_PINS
+    #define MODE_LEDS
     #define SEND_RSSI_DATA
     #define SERIAL_REPEATER
     #define USE_DCBLOCKER

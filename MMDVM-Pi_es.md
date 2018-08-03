@@ -90,7 +90,7 @@ Puedes seleccionar por ejemplo:
 
     // #define EXTERNAL_OSC 12000000 (deshabilitar todos los TCXO externos)
     // #define ARDUINO_DUE_ZUM_V10 (en realidad esta opción no importa en STM32)
-    #define MODE_PINS
+    #define MODE_LEDS
     #define SEND_RSSI_DATA
     #define SERIAL_REPEATER
     #define USE_DCBLOCKER
