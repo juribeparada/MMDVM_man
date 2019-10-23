@@ -30,6 +30,8 @@ Reboot your RPi:
 
 ## Installation of necessary software (only once)
 
+NOTE!!: To build firmware for the MMDVM-Pi v1.0 you need to use Pi-Star RPi_V4.1.0-RC4_27-Aug-2019 or higher. If you are using Raspbian, use Buster or higher
+
 If you are using Pi-Star, expand filesystem (if you haven't done before):
 
     sudo pistar-expand
@@ -38,10 +40,6 @@ If you are using Pi-Star, expand filesystem (if you haven't done before):
 Enable RW filesystem if you are using Pi-Star:
 
     rpi-rw
-
-Update list of packages. Do not do this on Pi-Star Beta V4:
-
-    sudo apt-get update
 
 Install toolchain and necessary packages:
 
@@ -108,7 +106,7 @@ You can select for example:
 
 Compile:
 
-    make pi
+    make pi-f722
 
 If you are using Pi-Star, stop services:
 
@@ -118,5 +116,5 @@ If you are using Pi-Star, stop services:
 
 Upload the firmware:
 
-    sudo make deploy-pi
+    sudo make deploy-pi-f7
 

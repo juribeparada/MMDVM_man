@@ -30,6 +30,8 @@ Reiniciar tu RPi:
 
 ## Instalación de todo el software necesario (se realiza solamente una vez)
 
+NOTA!!: Para poder compilar firmware para el MMDVM-Pi v1.0 necesitas usar Pi-Star RPi_V4.1.0-RC4_27-Aug-2019 o la version más reciente. Si vas a usar Rasbpian, utiliza la version Buster o la mas reciente.
+
 Si estás usando Pi-Star, expande el sistema de archivos (si no lo has realizado antes):
 
     sudo pistar-expand
@@ -38,10 +40,6 @@ Si estás usando Pi-Star, expande el sistema de archivos (si no lo has realizado
 Habilita la escritura en el disco si usas Pi-Star:
 
     rpi-rw
-
-Actualizar la lista de paquetes. No hacer esto si estás usando Pi-Star Beta V4:
-
-    sudo apt-get update
 
 Instala el compilador y paquetes necesarios:
 
@@ -108,7 +106,7 @@ Puedes seleccionar por ejemplo:
 
 Compilar el código fuente:
 
-    make pi
+    make pi-f722
 
 Si estas usando Pi-Star, hay que detener el servicio MMDVMHost para liberar el puerto serial:
 
@@ -118,5 +116,5 @@ Si estas usando Pi-Star, hay que detener el servicio MMDVMHost para liberar el p
 
 Sube el firmware a la tarjeta MMDVM:
 
-    sudo make deploy-pi
+    sudo make deploy-pi-f7
 
