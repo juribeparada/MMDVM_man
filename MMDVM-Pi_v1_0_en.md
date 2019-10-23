@@ -1,4 +1,4 @@
-# Enable serial port in Raspberry Pi 3 or Pi Zero W
+# Enable serial port in Raspberry Pi 4 or Raspberry Pi 3 or Pi Zero W
 
 This this necessary only if you are installing a fresh copy of Raspbian OS. Images like "Pi-Star" are already OK.
 

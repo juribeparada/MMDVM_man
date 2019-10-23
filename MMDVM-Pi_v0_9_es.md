@@ -1,4 +1,4 @@
-# Habilitar puerto serial en Raspberry Pi 3 o Pi Zero W
+# Habilitar puerto serial en Raspberry Pi 4 o Raspberry Pi 3 o Pi Zero W
 
 Esto es necesario si estás usando una copia reciente de Raspbian OS. Imágenes como "Pi-Star" ya están listas y no es necesario este procedimiento.
 
