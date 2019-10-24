@@ -1,4 +1,4 @@
-# Enable serial port in Raspberry Pi 3 or Pi Zero W
+# Enable serial port in Raspberry Pi 4 or Raspberry Pi 3 or Pi Zero W
 
 This this necessary only if you are installing a fresh copy of Raspbian OS. Images like "Pi-Star" are already OK.
 
@@ -39,13 +39,23 @@ Enable RW filesystem if you are using Pi-Star:
 
     rpi-rw
 
-Update list of packages:
+Update list of packages. Do not do this on Pi-Star Beta V4:
 
     sudo apt-get update
 
 Install toolchain and necessary packages:
 
     sudo apt-get install git gcc-arm-none-eabi gdb-arm-none-eabi libstdc++-arm-none-eabi-newlib autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev
+
+If on Pi-Star Beta v4 you may get "cannot resolve host" error when downloading the packages. Do the following:
+
+    sudo nano /etc/resolv.conf
+
+Enter the following on a new line
+
+    nameserver 8.8.8.8
+
+Ctrl-O and Ctrl-X to save and exit. Now you can download the packages without getting that error.
 
 Download and compile serial flashing utilities:
 
