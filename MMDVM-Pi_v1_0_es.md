@@ -55,14 +55,6 @@ Pon lo siguiente en una nueva linea
 
 Ctrl-O y Ctrl-X para guardar los cambios y salir del programa. Ahora podras descargar los paquetes necesarios sin el error.
 
-Bajar y compilar las herramientas de programación serial:
-
-    cd ~
-    git clone https://github.com/jsnyder/stm32ld
-    cd stm32ld
-    make
-    sudo cp stm32ld /usr/local/bin
-
 Eliminar los paquetes libi2c-dev y stm32flash si estás usando Pi-Star:
 
     sudo apt-get remove libi2c-dev

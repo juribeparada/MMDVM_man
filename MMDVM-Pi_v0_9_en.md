@@ -57,14 +57,6 @@ Enter the following on a new line
 
 Ctrl-O and Ctrl-X to save and exit. Now you can download the packages without getting that error.
 
-Download and compile serial flashing utilities:
-
-    cd ~
-    git clone https://github.com/jsnyder/stm32ld
-    cd stm32ld
-    make
-    sudo cp stm32ld /usr/local/bin
-
 Remove libi2c-dev and stm32flash packages if you are using Pi-Star:
 
     sudo apt-get remove libi2c-dev

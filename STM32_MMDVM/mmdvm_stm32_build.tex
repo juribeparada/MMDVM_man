@@ -233,15 +233,6 @@ rpi-rw
 sudo apt-get install git gcc-arm-none-eabi gdb-arm-none-eabi libstdc++-arm-none-eabi-newlib autoconf libtool pkg-config libusb-1.0-0 libusb-1.0-0-dev
 \end{lstlisting}
 
-\item Download and compile serial flashing utilities:
-\begin{lstlisting}[style=DOS]
-cd ~
-git clone https://github.com/jsnyder/stm32ld
-cd stm32ld
-make
-sudo cp stm32ld /usr/local/bin
-\end{lstlisting}
-
 \item Remove libi2c-dev and stm32flash packages if you are using Pi-Star:
 \begin{lstlisting}[style=DOS]
 sudo apt-get remove libi2c-dev
